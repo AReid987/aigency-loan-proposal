@@ -50,7 +50,7 @@ function LoginInner() {
         overflow: "hidden",
       }}
     >
-      {/* ambient accent glow */}
+      {/* ambient violet glow */}
       <div
         aria-hidden
         style={{
@@ -59,7 +59,7 @@ function LoginInner() {
           height: 620,
           borderRadius: "50%",
           background:
-            "radial-gradient(circle, rgba(232,176,75,0.10) 0%, rgba(232,176,75,0) 70%)",
+            "radial-gradient(circle, rgba(142,108,228,0.16) 0%, rgba(142,108,228,0) 70%)",
           top: "-10%",
           left: "50%",
           transform: "translateX(-50%)",
@@ -74,7 +74,13 @@ function LoginInner() {
         style={{ width: "100%", maxWidth: 420, position: "relative" }}
       >
         <div style={{ marginBottom: 28 }}>
-          <div className="eyebrow">Aigency</div>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14 }}>
+            <div style={{ display: "flex", gap: 2 }}>
+              <span style={{ width: 10, height: 10, borderRadius: 3, background: "var(--violet)" }} />
+              <span style={{ width: 10, height: 10, borderRadius: 3, background: "var(--amber)" }} />
+            </div>
+            <span style={{ fontWeight: 700, letterSpacing: "0.16em", fontSize: 14 }}>AIGENCY</span>
+          </div>
           <h1
             style={{
               fontSize: 30,
@@ -84,7 +90,7 @@ function LoginInner() {
               lineHeight: 1.1,
             }}
           >
-            Private proposal
+            Private <span className="serif-i" style={{ color: "var(--violet-soft)" }}>proposal</span>
           </h1>
           <p style={{ color: "var(--ink-soft)", margin: 0, fontSize: 15 }}>
             Enter the password you were given to view this document.
@@ -135,16 +141,16 @@ function LoginInner() {
             style={{
               marginTop: 8,
               width: "100%",
-              background: "var(--accent)",
-              color: "var(--accent-ink)",
+              background: "var(--violet)",
+              color: "#fff",
               border: "none",
-              borderRadius: 12,
+              borderRadius: 999,
               padding: "14px 16px",
               fontSize: 15,
               fontWeight: 600,
               cursor: loading ? "default" : "pointer",
               opacity: loading ? 0.75 : 1,
-              boxShadow: "inset 0 1px 0 rgba(255,255,255,0.25)",
+              boxShadow: "0 0 0 1px rgba(167,139,250,0.4), 0 8px 30px -8px rgba(142,108,228,0.6)",
             }}
           >
             {loading ? "Checking…" : "View proposal"}
