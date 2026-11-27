@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap');
+
+:root {
+  /* Unicorn Studio aesthetic: near-black window, violet accents */
+  --bg: #08080a;
+  --bg-2: #0c0c10;
+  --surface: #17171c;
+  --surface-2: #1e1e26;
+  --line: rgba(255, 255, 255, 0.07);
+  --line-strong: rgba(255, 255, 255, 0.12);
+
+  --ink: #dad7de;
+  --ink-soft: #aeaac0;
+  --ink-faint: #62626f;
+
+  /* Violet primary + warm voxel glow */
+  --violet: #8e6ce4;
+  --violet-soft: #a78bfa;
+  --violet-ink: #0b0618;
+  --magenta: #e879c7;
+  --amber: #ffb347;
+  --amber-hot: #ffd36b;
+
+  --font-sans: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, 'SF Mono', monospace;
+  --font-serif: 'Instrument Serif', Georgia, serif;
+
+  --maxw: 1200px;
+  --frame: 14px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* Thin dark-window frame around the whole page */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  border: var(--frame) solid #050507;
+  z-index: 70;
+  pointer-events: none;
+}
+
+::selection { background: var(--violet); color: #fff; }
+a { color: inherit; text-decoration: none; }
+
+.mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.serif-i { font-family: var(--font-serif); font-style: italic; font-weight: 400; }
+
+.wrap { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+/* Violet pill button */
+.btn-violet {
+  background: var(--violet);
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 13px 24px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  box-shadow: 0 0 0 1px rgba(167,139,250,0.4), 0 8px 30px -8px rgba(142,108,228,0.6);
+  transition: transform 0.2s cubic-bezier(0.16,1,0.3,1), box-shadow 0.2s;
+}
+.btn-violet:hover { transform: translateY(-1px); box-shadow: 0 0 0 1px rgba(167,139,250,0.6), 0 12px 40px -8px rgba(142,108,228,0.8); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  padding: 13px 24px;
+  font-weight: 500;
+  font-size: 15px;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+.btn-ghost:hover { border-color: var(--violet); background: rgba(142,108,228,0.08); }
+
+/* Bento card */
+.bento {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 28px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s, transform 0.3s cubic-bezier(0.16,1,0.3,1);
+}
+.bento:hover { border-color: rgba(142,108,228,0.35); transform: translateY(-2px); }
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  color: var(--ink-soft);
+  background: rgba(255,255,255,0.02);
+}
+.pill .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--violet-soft); box-shadow: 0 0 8px var(--violet); }
+
+/* ---------- Voxel cube stack (CSS 3D) ---------- */
+.voxel-stage {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  perspective: 900px;
+  pointer-events: none;
+}
+.voxel-stack {
+  transform-style: preserve-3d;
+  animation: voxelSpin 16s linear infinite;
+}
+@keyframes voxelSpin {
+  from { transform: rotateX(-18deg) rotateY(0deg); }
+  to   { transform: rotateX(-18deg) rotateY(360deg); }
+}
+.voxel-cube {
+  position: absolute;
+  width: var(--s, 54px);
+  height: var(--s, 54px);
+  transform-style: preserve-3d;
+}
+.voxel-cube .face {
+  position: absolute;
+  width: var(--s, 54px);
+  height: var(--s, 54px);
+  border: 1px solid rgba(255, 211, 107, 0.55);
+  background: linear-gradient(135deg, rgba(255,179,71,0.16), rgba(232,121,199,0.10));
+  box-shadow: inset 0 0 18px rgba(255,179,71,0.25), 0 0 22px rgba(255,179,71,0.15);
+  backface-visibility: visible;
+}
+.voxel-cube .f-front  { transform: translateZ(calc(var(--s,54px)/2)); }
+.voxel-cube .f-back   { transform: rotateY(180deg) translateZ(calc(var(--s,54px)/2)); }
+.voxel-cube .f-right  { transform: rotateY(90deg) translateZ(calc(var(--s,54px)/2)); }
+.voxel-cube .f-left   { transform: rotateY(-90deg) translateZ(calc(var(--s,54px)/2)); }
+.voxel-cube .f-top    { transform: rotateX(90deg) translateZ(calc(var(--s,54px)/2)); }
+.voxel-cube .f-bottom { transform: rotateX(-90deg) translateZ(calc(var(--s,54px)/2)); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  .voxel-stack { animation: none; }
+}
